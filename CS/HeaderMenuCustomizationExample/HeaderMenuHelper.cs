@@ -8,7 +8,7 @@ using DevExpress.Xpf.PivotGrid.Internal;
 using System.Windows;
 using System.Reflection;
 
-namespace WpfApplication53
+namespace HeaderMenuCustomizationExample
 {
     class HeaderMenuHelper
     {

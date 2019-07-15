@@ -1,16 +1,19 @@
 <!-- default file list -->
 *Files to look at*:
 
-* **[HeaderMenuHelper.cs](./CS/WpfApplication53/HeaderMenuHelper.cs) (VB: [HeaderMenuHelper.vb](./VB/WpfApplication53/HeaderMenuHelper.vb))**
-* [MainWindow.xaml](./CS/WpfApplication53/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/WpfApplication53/MainWindow.xaml))
-* [MainWindow.xaml.cs](./CS/WpfApplication53/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/WpfApplication53/MainWindow.xaml.vb))
+* [HeaderMenuHelper.cs](./CS/HeaderMenuCustomizationExample/HeaderMenuHelper.cs) (VB: [HeaderMenuHelper.vb](./VB/HeaderMenuCustomizationExample/HeaderMenuHelper.vb))
+* [MainWindow.xaml](./CS/HeaderMenuCustomizationExample/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/HeaderMenuCustomizationExample/MainWindow.xaml))
+* [MainWindow.xaml.cs](./CS/HeaderMenuCustomizationExample/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/HeaderMenuCustomizationExample/MainWindow.xaml.vb))
 <!-- default file list end -->
-# How to customize the Data Field menu to allow SummaryType and SummaryDisplayType selection
+# How to Customize the Data Header Menu to Add a Command to Change the Summary Type
 
 
-<p>This example demonstrates how to use the <a href="https://documentation.devexpress.com/#WPF/DevExpressXpfPivotGridPivotGridControl_PopupMenuShowingtopic">PivotGridControl.PopupMenuShowing Event</a> items to add custom items to the default context menu. This event is handled automatically if you enable the <strong>AllowFieldSummaryTypeChanging</strong> or  <strong>AllowFieldSummaryDisplayTypeChanging</strong> attached properties that are defined in the <strong>HeaderMenuHelper</strong> class. </p>
-<p><br><strong>See Also:</strong><br><a href="https://www.devexpress.com/Support/Center/p/E2205">E2205: How to create a context menu for field values</a></p>
+This example demonstrates how to use the [PivotGridControl.PopupMenuShowing](https://docs.devexpress.com/WindowsForms/DevExpress.XtraPivotGrid.PivotGridControl.PopupMenuShowing) event to add custom items to the built-in context menu. 
 
-<br/>
+![screenshot](/images/screenshot.png)
 
+The event is handled automatically if the field's **AllowFieldSummaryTypeChanging** or  **AllowFieldSummaryDisplayTypeChanging** attached properties are **true**. The properties are defined in the **HeaderMenuHelper** class. 
 
+See also:
+
+* [How to Customize the Pivot Grid Context Menu](https://github.com/DevExpress-Examples/how-to-create-a-context-menu-for-field-values-e2205)

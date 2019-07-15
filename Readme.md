@@ -8,7 +8,7 @@
 # How to Customize the Data Header Menu to Add a Command to Change the Summary Type
 
 
-This example demonstrates how to use the [PivotGridControl.PopupMenuShowing](https://docs.devexpress.com/WindowsForms/DevExpress.XtraPivotGrid.PivotGridControl.PopupMenuShowing) event to add custom items to the built-in context menu. 
+This example demonstrates how to use the [PivotGridControl.PopupMenuShowing](https://docs.devexpress.com/WPF/DevExpress.Xpf.PivotGrid.PivotGridControl.PopupMenuShowing) event to add custom items to the built-in context menu. 
 
 ![screenshot](/images/screenshot.png)
 

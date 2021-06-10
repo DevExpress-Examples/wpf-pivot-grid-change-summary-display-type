@@ -1,0 +1,27 @@
+<Window  x:Class="HeaderMenuCustomizationExample.MainWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:dxpg="http://schemas.devexpress.com/winfx/2008/xaml/pivotgrid"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:local="clr-namespace:HeaderMenuCustomizationExample"
+         Title="Data Header Context Menu Customization" Height="450" Width="800"
+         Loaded="Window_Loaded">
+    <Grid>
+        <dxpg:PivotGridControl Name="pivotGridControl1"
+                               local:HeaderMenuHelper.AllowPopupMenuCustomization="True"
+                               RowTreeWidth="130">
+           
+            <dxpg:PivotGridControl.Fields>
+                <dxpg:PivotGridField Area="RowArea" FieldName="Name" />
+                <dxpg:PivotGridField Area="RowArea" FieldName="Owner" />
+                <dxpg:PivotGridField Area="ColumnArea" FieldName="Type" />
+                <dxpg:PivotGridField Area="DataArea" FieldName="Value" Name="fieldValue"
+                                     local:HeaderMenuHelper.AllowFieldSummaryTypeChanging="True"
+                                     local:HeaderMenuHelper.AllowFieldSummaryDisplayTypeChanging="True" />
+                <dxpg:PivotGridField Area="DataArea" FieldName="Target" Name="fieldTarget"
+                                     local:HeaderMenuHelper.AllowFieldSummaryTypeChanging="True"
+                                     local:HeaderMenuHelper.AllowFieldSummaryDisplayTypeChanging="True" />
+            </dxpg:PivotGridControl.Fields>
+
+        </dxpg:PivotGridControl>
+    </Grid>
+</Window>

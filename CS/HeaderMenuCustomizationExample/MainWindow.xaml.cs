@@ -1,26 +1,20 @@
 ﻿using System.Data;
 using System.Windows;
 
-namespace HeaderMenuCustomizationExample
-{
+namespace HeaderMenuCustomizationExample {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-            
+    public partial class MainWindow : Window {
+        public MainWindow() {
+            InitializeComponent();            
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
             pivotGridControl1.DataSource = CreatePivotDataSource();
         }
 
-        public static DataTable CreatePivotDataSource()
-        {
+        public static DataTable CreatePivotDataSource() {
             DataTable myTable = new DataTable();
             myTable.Columns.Add("Name", typeof(string));
             myTable.Columns.Add("Owner", typeof(string));
@@ -44,9 +38,5 @@ namespace HeaderMenuCustomizationExample
 
             return myTable;
         }
-
-
     }
-
-    
 }

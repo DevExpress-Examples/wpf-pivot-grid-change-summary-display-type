@@ -1,9 +1,9 @@
 <!-- default file list -->
 *Files to look at*:
 
-* [HeaderMenuHelper.cs](./CS/HeaderMenuCustomizationExample/HeaderMenuHelper.cs) (VB: [HeaderMenuHelper.vb](./VB/HeaderMenuCustomizationExample/HeaderMenuHelper.vb))
-* [MainWindow.xaml](./CS/HeaderMenuCustomizationExample/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/HeaderMenuCustomizationExample/MainWindow.xaml))
-* [MainWindow.xaml.cs](./CS/HeaderMenuCustomizationExample/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/HeaderMenuCustomizationExample/MainWindow.xaml.vb))
+* [HeaderMenuHelper.cs](./CS/HeaderMenuCustomizationExample/HeaderMenuHelper.cs)
+* [MainWindow.xaml](./CS/HeaderMenuCustomizationExample/MainWindow.xaml)
+* [MainWindow.xaml.cs](./CS/HeaderMenuCustomizationExample/MainWindow.xaml.cs)
 <!-- default file list end -->
 # How to Customize the Data Header Menu to Add a Command to Change the Summary Type
 

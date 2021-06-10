@@ -5,8 +5,7 @@
 * [MainWindow.xaml](./CS/HeaderMenuCustomizationExample/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/HeaderMenuCustomizationExample/MainWindow.xaml))
 * [MainWindow.xaml.cs](./CS/HeaderMenuCustomizationExample/MainWindow.xaml.cs) (VB: [MainWindow.xaml.vb](./VB/HeaderMenuCustomizationExample/MainWindow.xaml.vb))
 <!-- default file list end -->
-# How to Customize the Data Header Menu to Add a Command to Change the Summary Type
-
+# WPF Dashboard Viewer - How to Customize the Data Header Menu to Add a Command to Change the Summary Type
 
 This example demonstrates how to use the [PivotGridControl.PopupMenuShowing](https://docs.devexpress.com/WPF/DevExpress.Xpf.PivotGrid.PivotGridControl.PopupMenuShowing) event to add custom items to the built-in context menu. 
 

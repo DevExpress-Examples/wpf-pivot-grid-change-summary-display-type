@@ -1,8 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 16
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderMenuCustomizationExample", "HeaderMenuCustomizationExample\HeaderMenuCustomizationExample.csproj", "{DC462D8B-3BEF-478D-9F60-1FD7C38B8D51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeaderMenuCustomizationExample", "HeaderMenuCustomizationExample\HeaderMenuCustomizationExample.Net5.csproj", "{DC462D8B-3BEF-478D-9F60-1FD7C38B8D51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

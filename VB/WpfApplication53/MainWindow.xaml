@@ -17,6 +17,9 @@
                 <dxpg:PivotGridField Area="DataArea" FieldName="Value" Name="fieldValue"
                                      local:HeaderMenuHelper.AllowFieldSummaryTypeChanging="True"
                                      local:HeaderMenuHelper.AllowFieldSummaryDisplayTypeChanging="True" />
+                <dxpg:PivotGridField Area="DataArea" FieldName="Target" Name="fieldTarget"
+                                     local:HeaderMenuHelper.AllowFieldSummaryTypeChanging="True"
+                                     local:HeaderMenuHelper.AllowFieldSummaryDisplayTypeChanging="True" />
             </dxpg:PivotGridControl.Fields>
 
         </dxpg:PivotGridControl>

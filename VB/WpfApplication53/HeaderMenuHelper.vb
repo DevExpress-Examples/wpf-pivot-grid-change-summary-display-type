@@ -1,8 +1,4 @@
-﻿Imports Microsoft.VisualBasic
 Imports System
-Imports System.Collections.Generic
-Imports System.Linq
-Imports System.Text
 Imports DevExpress.Xpf.Bars
 Imports DevExpress.Xpf.PivotGrid
 Imports DevExpress.Xpf.PivotGrid.Internal
@@ -10,91 +6,89 @@ Imports System.Windows
 Imports System.Reflection
 
 Namespace WpfApplication53
-	Friend Class HeaderMenuHelper
-		#Region "AttachedProperties"
-		Public Shared ReadOnly AllowFieldSummaryTypeChangingProperty As DependencyProperty = DependencyProperty.RegisterAttached("AllowFieldSummaryTypeChanging", GetType(Boolean), GetType(HeaderMenuHelper))
-		Public Shared Sub SetAllowFieldSummaryTypeChanging(ByVal element As DependencyObject, ByVal value As Boolean)
-			element.SetValue(AllowFieldSummaryTypeChangingProperty, value)
-		End Sub
-		Public Shared Function GetAllowFieldSummaryTypeChanging(ByVal element As DependencyObject) As Boolean
-			Return CType(element.GetValue(AllowFieldSummaryTypeChangingProperty), Boolean)
-		End Function
 
-		Public Shared ReadOnly AllowFieldSummaryDisplayTypeChangingProperty As DependencyProperty = DependencyProperty.RegisterAttached("AllowFieldSummaryDisplayTypeChanging", GetType(Boolean), GetType(HeaderMenuHelper))
-		Public Shared Sub SetAllowFieldSummaryDisplayTypeChanging(ByVal element As DependencyObject, ByVal value As Boolean)
-			element.SetValue(AllowFieldSummaryDisplayTypeChangingProperty, value)
-		End Sub
-		Public Shared Function GetAllowFieldSummaryDisplayTypeChanging(ByVal element As DependencyObject) As Boolean
-			Return CType(element.GetValue(AllowFieldSummaryDisplayTypeChangingProperty), Boolean)
-		End Function
+    Friend Class HeaderMenuHelper
 
-		Public Shared ReadOnly AllowPopupMenuCustomizationProperty As DependencyProperty = DependencyProperty.RegisterAttached("AllowPopupMenuCustomization", GetType(Boolean), GetType(HeaderMenuHelper), New FrameworkPropertyMetadata(False, New PropertyChangedCallback(AddressOf OnAllowPopupMenuCustomization)))
-		Public Shared Sub SetAllowPopupMenuCustomization(ByVal element As DependencyObject, ByVal value As Boolean)
-			element.SetValue(AllowPopupMenuCustomizationProperty, value)
-		End Sub
-		Public Shared Function GetAllowPopupMenuCustomization(ByVal element As DependencyObject) As Boolean
-			Return CType(element.GetValue(AllowPopupMenuCustomizationProperty), Boolean)
-		End Function
-		#End Region ' AttachedProperties
+'#Region "AttachedProperties"
+        Public Shared ReadOnly AllowFieldSummaryTypeChangingProperty As DependencyProperty = DependencyProperty.RegisterAttached("AllowFieldSummaryTypeChanging", GetType(Boolean), GetType(HeaderMenuHelper))
 
-		#Region "PivotPopupMenuCustomization"
-		Public Shared Sub OnAllowPopupMenuCustomization(ByVal o As DependencyObject, ByVal args As DependencyPropertyChangedEventArgs)
-			Dim pivotGrid As PivotGridControl = TryCast(o, PivotGridControl)
-			If pivotGrid Is Nothing Then
-				Return
-			End If
-			If CType(args.NewValue, Boolean) = True AndAlso CType(args.OldValue, Boolean) = False Then
-				AddHandler pivotGrid.PopupMenuShowing, AddressOf pivotGrid_PopupMenuShowing
-			ElseIf CType(args.NewValue, Boolean) = False AndAlso CType(args.OldValue, Boolean) = True Then
-				RemoveHandler pivotGrid.PopupMenuShowing, AddressOf pivotGrid_PopupMenuShowing
-			End If
+        Public Shared Sub SetAllowFieldSummaryTypeChanging(ByVal element As DependencyObject, ByVal value As Boolean)
+            element.SetValue(AllowFieldSummaryTypeChangingProperty, value)
+        End Sub
 
-		End Sub
+        Public Shared Function GetAllowFieldSummaryTypeChanging(ByVal element As DependencyObject) As Boolean
+            Return CBool(element.GetValue(AllowFieldSummaryTypeChangingProperty))
+        End Function
 
-		Private Shared Sub pivotGrid_PopupMenuShowing(ByVal sender As Object, ByVal e As PopupMenuShowingEventArgs)
-			If e.MenuType = PivotGridMenuType.Header Then
-				Dim pivot As PivotGridControl = CType(sender, PivotGridControl)
-				Dim field As PivotGridField = e.GetFieldInfo().Field
-				If Convert.ToBoolean(field.GetValue(HeaderMenuHelper.AllowFieldSummaryTypeChangingProperty)) Then
-					e.Customizations.Add(CreateBarSubItem("Summary Type", "SummaryType", field))
-				End If
-				If Convert.ToBoolean(field.GetValue(HeaderMenuHelper.AllowFieldSummaryDisplayTypeChangingProperty)) Then
-					e.Customizations.Add(CreateBarSubItem("Summary Display Type", "SummaryDisplayType", field))
-				End If
+        Public Shared ReadOnly AllowFieldSummaryDisplayTypeChangingProperty As DependencyProperty = DependencyProperty.RegisterAttached("AllowFieldSummaryDisplayTypeChanging", GetType(Boolean), GetType(HeaderMenuHelper))
 
-			End If
-		End Sub
-		#End Region
+        Public Shared Sub SetAllowFieldSummaryDisplayTypeChanging(ByVal element As DependencyObject, ByVal value As Boolean)
+            element.SetValue(AllowFieldSummaryDisplayTypeChangingProperty, value)
+        End Sub
 
-		#Region "CustomBarItemsCreation"
+        Public Shared Function GetAllowFieldSummaryDisplayTypeChanging(ByVal element As DependencyObject) As Boolean
+            Return CBool(element.GetValue(AllowFieldSummaryDisplayTypeChangingProperty))
+        End Function
 
-		Private Shared Function CreateBarSubItem(ByVal displayText As String, ByVal propertyName As String, ByVal field As PivotGridField) As BarSubItem
-			Dim barSubItem As New BarSubItem()
-			barSubItem.Content = displayText
+        Public Shared ReadOnly AllowPopupMenuCustomizationProperty As DependencyProperty = DependencyProperty.RegisterAttached("AllowPopupMenuCustomization", GetType(Boolean), GetType(HeaderMenuHelper), New FrameworkPropertyMetadata(False, New PropertyChangedCallback(AddressOf OnAllowPopupMenuCustomization)))
 
-			Dim [property] As PropertyInfo = GetType(PivotGridField).GetProperty(propertyName)
+        Public Shared Sub SetAllowPopupMenuCustomization(ByVal element As DependencyObject, ByVal value As Boolean)
+            element.SetValue(AllowPopupMenuCustomizationProperty, value)
+        End Sub
 
-			For Each enumValue As Object In System.Enum.GetValues([property].PropertyType)
-				Dim checkItem As New BarCheckItem()
-				checkItem.Content = enumValue.ToString()
-				checkItem.IsChecked = Object.Equals([property].GetValue(field, New Object(){}), enumValue)
-				checkItem.Tag = New Object() { field, [property], enumValue }
-				AddHandler checkItem.ItemClick, AddressOf itemClickEventHandler
+        Public Shared Function GetAllowPopupMenuCustomization(ByVal element As DependencyObject) As Boolean
+            Return CBool(element.GetValue(AllowPopupMenuCustomizationProperty))
+        End Function
 
-				barSubItem.ItemLinks.Add(checkItem)
-			Next enumValue
-			Return barSubItem
-		End Function
+'#End Region  ' AttachedProperties
+'#Region "PivotPopupMenuCustomization"
+        Public Shared Sub OnAllowPopupMenuCustomization(ByVal o As DependencyObject, ByVal args As DependencyPropertyChangedEventArgs)
+            Dim pivotGrid As PivotGridControl = TryCast(o, PivotGridControl)
+            If pivotGrid Is Nothing Then Return
+            If CBool(args.NewValue) = True AndAlso CBool(args.OldValue) = False Then
+                pivotGrid.PopupMenuShowing += AddressOf pivotGrid_PopupMenuShowing
+            ElseIf CBool(args.NewValue) = False AndAlso CBool(args.OldValue) = True Then
+                pivotGrid.PopupMenuShowing -= AddressOf pivotGrid_PopupMenuShowing
+            End If
+        End Sub
 
-		Private Shared Sub itemClickEventHandler(ByVal sender As Object, ByVal e As ItemClickEventArgs)
-			Dim barItem As BarItem = TryCast(sender, BarItem)
-			Dim barItemInfo() As Object = CType(barItem.Tag, Object())
-			Dim field As PivotGridField = CType(barItemInfo(0), PivotGridField)
-			Dim [property] As PropertyInfo = CType(barItemInfo(1), PropertyInfo)
-			Dim newValue As Object = barItemInfo(2)
-			[property].SetValue(field, newValue, New Object(){})
+        Private Shared Sub pivotGrid_PopupMenuShowing(ByVal sender As Object, ByVal e As PopupMenuShowingEventArgs)
+            If e.MenuType Is PivotGridMenuType.Header Then
+                Dim pivot As PivotGridControl = CType(sender, PivotGridControl)
+                Dim field As PivotGridField = e.GetFieldInfo().Field
+                If Convert.ToBoolean(field.GetValue(AllowFieldSummaryTypeChangingProperty)) Then e.Customizations.Add(HeaderMenuHelper.CreateBarSubItem("Summary Type", "SummaryType", field))
+                If Convert.ToBoolean(field.GetValue(AllowFieldSummaryDisplayTypeChangingProperty)) Then e.Customizations.Add(HeaderMenuHelper.CreateBarSubItem("Summary Display Type", "SummaryDisplayType", field))
+            End If
+        End Sub
 
-		End Sub
-		#End Region ' CommonMethods
-	End Class
+'#End Region
+'#Region "CustomBarItemsCreation"
+        Private Shared Function CreateBarSubItem(ByVal displayText As String, ByVal propertyName As String, ByVal field As PivotGridField) As BarSubItem
+            Dim barSubItem As BarSubItem = New BarSubItem()
+            barSubItem.Name = "bsi" & propertyName
+            barSubItem.Content = displayText
+            Dim [property] As PropertyInfo = GetType(PivotGridField).GetProperty(propertyName)
+            For Each enumValue As Object In [Enum].GetValues([property].PropertyType)
+                Dim checkItem As BarCheckItem = New BarCheckItem()
+                checkItem.Name = "bci" & propertyName & enumValue
+                checkItem.Content = enumValue.ToString()
+                checkItem.IsChecked = Object.Equals([property].GetValue(field, New Object(-1) {}), enumValue)
+                checkItem.Tag = New Object() {field, [property], enumValue}
+                checkItem.ItemClick += AddressOf itemClickEventHandler
+                barSubItem.ItemLinks.Add(checkItem)
+            Next
+
+            Return barSubItem
+        End Function
+
+        Private Shared Sub itemClickEventHandler(ByVal sender As Object, ByVal e As ItemClickEventArgs)
+            Dim barItem As BarItem = TryCast(sender, BarItem)
+            Dim barItemInfo As Object() = CType(barItem.Tag, Object())
+            Dim field As PivotGridField = CType(barItemInfo(0), PivotGridField)
+            Dim [property] As PropertyInfo = CType(barItemInfo(1), PropertyInfo)
+            Dim newValue As Object = barItemInfo(2)
+            [property].SetValue(field, newValue, New Object(-1) {})
+        End Sub
+'#End Region  ' CommonMethods
+    End Class
 End Namespace

@@ -64,34 +64,65 @@ Namespace HeaderMenuCustomizationExample
 		#Region "CustomBarItemsCreation"
 
 		Private Shared Function CreateBarSubItem(ByVal displayText As String, ByVal propertyName As String, ByVal field As PivotGridField) As BarSubItem
-			Dim barSubItem As New BarSubItem()
-			barSubItem.Name = "bsi" & propertyName
-			barSubItem.Content = displayText
+            Dim barSubItem As New BarSubItem()
+            barSubItem.Name = "bsi" & propertyName
+            barSubItem.Content = displayText
 
-			Dim [property] As PropertyInfo = GetType(PivotGridField).GetProperty(propertyName)
+            Dim [property] As PropertyInfo = GetType(PivotGridField).GetProperty(propertyName)
 
-			For Each enumValue As Object In System.Enum.GetValues([property].PropertyType)
-				Dim checkItem As New BarCheckItem()
-				checkItem.Name = "bci" & propertyName & enumValue.ToString()
-				checkItem.Content = enumValue.ToString()
-				checkItem.IsChecked = Object.Equals([property].GetValue(field, New Object(){}), enumValue)
-				checkItem.Tag = New Object() { field, [property], enumValue }
-				AddHandler checkItem.ItemClick, AddressOf itemClickEventHandler
+            For Each enumValue As Object In System.Enum.GetValues([property].PropertyType)
+                If enumValue.Equals(FieldSummaryDisplayType.Index) Then
+                    Continue For
+                End If
+                Dim checkItem As New BarCheckItem()
+                checkItem.Name = "bci" & propertyName & enumValue.ToString()
+                checkItem.Content = enumValue.ToString()
+                checkItem.IsChecked = Object.Equals(field.Tag, enumValue) OrElse enumValue.Equals(FieldSummaryDisplayType.Default) AndAlso field.Tag Is Nothing
+                checkItem.Tag = New Object() {field, [property], enumValue}
+                AddHandler checkItem.ItemClick, AddressOf itemClickEventHandler
 
-				barSubItem.ItemLinks.Add(checkItem)
-			Next enumValue
-			Return barSubItem
-		End Function
+                barSubItem.ItemLinks.Add(checkItem)
+            Next enumValue
+            Return barSubItem
+
+        End Function
 
 		Private Shared Sub itemClickEventHandler(ByVal sender As Object, ByVal e As ItemClickEventArgs)
-			Dim barItem As BarItem = TryCast(sender, BarItem)
-			Dim barItemInfo() As Object = CType(barItem.Tag, Object())
-			Dim field As PivotGridField = CType(barItemInfo(0), PivotGridField)
-			Dim [property] As PropertyInfo = CType(barItemInfo(1), PropertyInfo)
-			Dim newValue As Object = barItemInfo(2)
-			[property].SetValue(field, newValue, New Object(){})
+            Dim barItem As BarItem = TryCast(sender, BarItem)
+            Dim barItemInfo() As Object = CType(barItem.Tag, Object())
+            Dim field As PivotGridField = DirectCast(barItemInfo(0), PivotGridField)
+            Dim newValue As FieldSummaryDisplayType = DirectCast(barItemInfo(2), FieldSummaryDisplayType)
+            Dim sourceBinding As New DataSourceColumnBinding("Value")
+            Select Case newValue
+                Case FieldSummaryDisplayType.AbsoluteVariation
+                    field.DataBinding = New DifferenceBinding(sourceBinding, CalculationPartitioningCriteria.RowValue, CalculationDirection.DownThenAcross, DifferenceTarget.Previous, DifferenceType.Absolute)
+                Case FieldSummaryDisplayType.PercentVariation
+                    field.DataBinding = New DifferenceBinding(sourceBinding, CalculationPartitioningCriteria.RowValue, CalculationDirection.DownThenAcross, DifferenceTarget.Previous, DifferenceType.Percentage)
+                Case FieldSummaryDisplayType.PercentOfColumn
+                    field.DataBinding = New PercentOfTotalBinding(sourceBinding, CalculationPartitioningCriteria.ColumnValueAndRowParentValue)
+                Case FieldSummaryDisplayType.PercentOfRow
+                    field.DataBinding = New PercentOfTotalBinding(sourceBinding, CalculationPartitioningCriteria.RowValueAndColumnParentValue)
+                Case FieldSummaryDisplayType.PercentOfColumnGrandTotal
+                    field.DataBinding = New PercentOfTotalBinding(sourceBinding, CalculationPartitioningCriteria.ColumnValue)
+                Case FieldSummaryDisplayType.PercentOfRowGrandTotal
+                    field.DataBinding = New PercentOfTotalBinding(sourceBinding, CalculationPartitioningCriteria.RowValue)
+                Case FieldSummaryDisplayType.PercentOfGrandTotal
+                    field.DataBinding = New PercentOfTotalBinding(sourceBinding, CalculationPartitioningCriteria.None)
+                Case FieldSummaryDisplayType.RankInColumnLargestToSmallest
+                    field.DataBinding = New RankBinding(sourceBinding, CalculationPartitioningCriteria.ColumnValue, RankType.Dense, FieldSortOrder.Descending)
+                Case FieldSummaryDisplayType.RankInColumnSmallestToLargest
+                    field.DataBinding = New RankBinding(sourceBinding, CalculationPartitioningCriteria.ColumnValue, RankType.Dense, FieldSortOrder.Ascending)
+                Case FieldSummaryDisplayType.RankInRowLargestToSmallest
+                    field.DataBinding = New RankBinding(sourceBinding, CalculationPartitioningCriteria.RowValue, RankType.Dense, FieldSortOrder.Descending)
+                Case FieldSummaryDisplayType.RankInRowSmallestToLargest
+                    field.DataBinding = New RankBinding(sourceBinding, CalculationPartitioningCriteria.ColumnValue, RankType.Dense, FieldSortOrder.Ascending)
+                Case Else
+                    field.DataBinding = sourceBinding
+            End Select
+            field.Tag = newValue
+            TryCast(field.Parent, PivotGridControl).ReloadData()
 
-		End Sub
+        End Sub
 		#End Region ' CommonMethods
 	End Class
 End Namespace

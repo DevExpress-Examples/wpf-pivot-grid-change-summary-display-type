@@ -166,7 +166,6 @@ namespace HeaderMenuCustomizationExample {
             }
             field.Tag = newValue;
             (field.Parent as PivotGridControl).ReloadData();
-
         }
         #endregion CommonMethods
     }

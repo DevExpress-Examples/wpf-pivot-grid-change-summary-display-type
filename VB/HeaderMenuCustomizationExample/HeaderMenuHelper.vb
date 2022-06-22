@@ -121,7 +121,6 @@ Namespace HeaderMenuCustomizationExample
             End Select
             field.Tag = newValue
             TryCast(field.Parent, PivotGridControl).ReloadData()
-
         End Sub
 		#End Region ' CommonMethods
 	End Class

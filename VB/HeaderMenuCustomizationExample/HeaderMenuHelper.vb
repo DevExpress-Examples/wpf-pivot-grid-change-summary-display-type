@@ -87,7 +87,7 @@ Namespace HeaderMenuCustomizationExample
 
         End Function
 
-	Private Shared Sub itemClickEventHandler(ByVal sender As Object, ByVal e As ItemClickEventArgs)
+		Private Shared Sub itemClickEventHandler(ByVal sender As Object, ByVal e As ItemClickEventArgs)
             Dim barItem As BarItem = TryCast(sender, BarItem)
             Dim barItemInfo() As Object = CType(barItem.Tag, Object())
             Dim field As PivotGridField = DirectCast(barItemInfo(0), PivotGridField)
@@ -121,6 +121,7 @@ Namespace HeaderMenuCustomizationExample
             End Select
             field.Tag = newValue
             TryCast(field.Parent, PivotGridControl).ReloadData()
+
         End Sub
 		#End Region ' CommonMethods
 	End Class

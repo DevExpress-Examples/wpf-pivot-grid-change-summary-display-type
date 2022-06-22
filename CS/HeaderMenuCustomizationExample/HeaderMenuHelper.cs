@@ -125,7 +125,6 @@ namespace HeaderMenuCustomizationExample {
                     field.DataBinding = new PercentOfTotalBinding(
                         sourceBinding,
                         CalculationPartitioningCriteria.ColumnValue);
-
                     break;
                 case FieldSummaryDisplayType.PercentOfRowGrandTotal:
                     field.DataBinding = new PercentOfTotalBinding(

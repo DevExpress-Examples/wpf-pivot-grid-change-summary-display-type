@@ -8,50 +8,40 @@ using DevExpress.Xpf.PivotGrid.Internal;
 using System.Windows;
 using System.Reflection;
 
-
-namespace HeaderMenuCustomizationExample
-{
-    class HeaderMenuHelper
-    {
+namespace HeaderMenuCustomizationExample {
+    class HeaderMenuHelper {
         #region AttachedProperties
         public static readonly DependencyProperty AllowFieldSummaryTypeChangingProperty =
                DependencyProperty.RegisterAttached("AllowFieldSummaryTypeChanging", typeof(Boolean), typeof(HeaderMenuHelper));
-        public static void SetAllowFieldSummaryTypeChanging(DependencyObject element, Boolean value)
-        {
+        public static void SetAllowFieldSummaryTypeChanging(DependencyObject element, Boolean value) {
             element.SetValue(AllowFieldSummaryTypeChangingProperty, value);
         }
-        public static Boolean GetAllowFieldSummaryTypeChanging(DependencyObject element)
-        {
+        public static Boolean GetAllowFieldSummaryTypeChanging(DependencyObject element) {
             return (Boolean)element.GetValue(AllowFieldSummaryTypeChangingProperty);
         }
 
         public static readonly DependencyProperty AllowFieldSummaryDisplayTypeChangingProperty =
               DependencyProperty.RegisterAttached("AllowFieldSummaryDisplayTypeChanging", typeof(Boolean), typeof(HeaderMenuHelper));
-        public static void SetAllowFieldSummaryDisplayTypeChanging(DependencyObject element, Boolean value)
-        {
+        public static void SetAllowFieldSummaryDisplayTypeChanging(DependencyObject element, Boolean value) {
             element.SetValue(AllowFieldSummaryDisplayTypeChangingProperty, value);
         }
-        public static Boolean GetAllowFieldSummaryDisplayTypeChanging(DependencyObject element)
-        {
+        public static Boolean GetAllowFieldSummaryDisplayTypeChanging(DependencyObject element) {
             return (Boolean)element.GetValue(AllowFieldSummaryDisplayTypeChangingProperty);
         }
 
         public static readonly DependencyProperty AllowPopupMenuCustomizationProperty =
               DependencyProperty.RegisterAttached("AllowPopupMenuCustomization", typeof(Boolean), typeof(HeaderMenuHelper),
               new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnAllowPopupMenuCustomization)));
-        public static void SetAllowPopupMenuCustomization(DependencyObject element, Boolean value)
-        {
+        public static void SetAllowPopupMenuCustomization(DependencyObject element, Boolean value) {
             element.SetValue(AllowPopupMenuCustomizationProperty, value);
         }
-        public static Boolean GetAllowPopupMenuCustomization(DependencyObject element)
-        {
+        public static Boolean GetAllowPopupMenuCustomization(DependencyObject element) {
             return (Boolean)element.GetValue(AllowPopupMenuCustomizationProperty);
         }
         #endregion AttachedProperties
 
         #region PivotPopupMenuCustomization
-        public static void OnAllowPopupMenuCustomization(DependencyObject o, DependencyPropertyChangedEventArgs args)
-        {
+        public static void OnAllowPopupMenuCustomization(DependencyObject o, DependencyPropertyChangedEventArgs args) {
             PivotGridControl pivotGrid = o as PivotGridControl;
             if (pivotGrid == null) return;
             if( (Boolean)args.NewValue == true && (Boolean)args.OldValue == false )
@@ -61,10 +51,8 @@ namespace HeaderMenuCustomizationExample
 
         }
 
-        static void pivotGrid_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)
-        {
-            if (e.MenuType == PivotGridMenuType.Header)
-            {
+        static void pivotGrid_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e) {
+            if (e.MenuType == PivotGridMenuType.Header) {
                 PivotGridControl pivot = (PivotGridControl)sender;
                 PivotGridField field = e.GetFieldInfo().Field;
                 if (Convert.ToBoolean(field.GetValue(HeaderMenuHelper.AllowFieldSummaryTypeChangingProperty)))
@@ -78,16 +66,14 @@ namespace HeaderMenuCustomizationExample
 
         #region CustomBarItemsCreation
 
-        private static BarSubItem CreateBarSubItem(string displayText, string propertyName, PivotGridField field)
-        {
+        private static BarSubItem CreateBarSubItem(string displayText, string propertyName, PivotGridField field) {
             BarSubItem barSubItem = new BarSubItem();
             barSubItem.Name = "bsi" + propertyName;
             barSubItem.Content = displayText;
 
             PropertyInfo property = typeof(PivotGridField).GetProperty(propertyName);
 
-            foreach (object enumValue in Enum.GetValues(property.PropertyType))
-            {
+            foreach (object enumValue in Enum.GetValues(property.PropertyType)) {
                 if(enumValue.Equals(FieldSummaryDisplayType.Index)) continue;
                 BarCheckItem checkItem = new BarCheckItem();
                 checkItem.Name = "bci" + propertyName + enumValue;
@@ -102,8 +88,7 @@ namespace HeaderMenuCustomizationExample
             return barSubItem;
         }
 
-        static void itemClickEventHandler(object sender, ItemClickEventArgs e)
-        {
+        static void itemClickEventHandler(object sender, ItemClickEventArgs e) {
             BarItem barItem = sender as BarItem;
             object[] barItemInfo = (object[])barItem.Tag;
             PivotGridField field = (PivotGridField)barItemInfo[0];

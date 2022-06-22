@@ -63,7 +63,7 @@ Namespace HeaderMenuCustomizationExample
 
 		#Region "CustomBarItemsCreation"
 
-		Private Shared Function CreateBarSubItem(ByVal displayText As String, ByVal propertyName As String, ByVal field As PivotGridField) As BarSubItem
+	Private Shared Function CreateBarSubItem(ByVal displayText As String, ByVal propertyName As String, ByVal field As PivotGridField) As BarSubItem
             Dim barSubItem As New BarSubItem()
             barSubItem.Name = "bsi" & propertyName
             barSubItem.Content = displayText

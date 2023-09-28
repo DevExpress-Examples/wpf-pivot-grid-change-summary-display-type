@@ -11,7 +11,7 @@ The following example shows how to customize the field header's context menu in 
 ![screenshot](/images/screenshot.png)
 
 <!-- default file list -->
-## Files to Look At
+## Files to Review
 
 * [HeaderMenuHelper.cs](./CS/HeaderMenuCustomizationExample/HeaderMenuHelper.cs) (VB: [HeaderMenuHelper.vb](./VB/HeaderMenuCustomizationExample/HeaderMenuHelper.vb))
 * [MainWindow.xaml](./CS/HeaderMenuCustomizationExample/MainWindow.xaml) (VB: [MainWindow.xaml](./VB/HeaderMenuCustomizationExample/MainWindow.xaml))
